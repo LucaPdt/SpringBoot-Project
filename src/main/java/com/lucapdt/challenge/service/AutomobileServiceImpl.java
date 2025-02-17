@@ -40,6 +40,6 @@ public class AutomobileServiceImpl implements AutomobileService{
 
     @Override
     public Optional<List<Automobile>> findAll() {
-        return Optional.empty();
+        return Optional.of(automobileRepository.findAll());
     }
 }
