@@ -18,6 +18,6 @@ public interface AutomobileService {
 
     Page<Automobile> findAll(int page, int size);
 
-    Page<Automobile> findByMarca(String marca);
+    Page<Automobile> findByMarca(String marca, int page, int size);
 
 }

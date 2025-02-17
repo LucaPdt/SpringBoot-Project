@@ -51,7 +51,8 @@ public class AutomobileServiceImpl implements AutomobileService{
     }
 
     @Override
-    public Page<Automobile> findByMarca(String marca) {
+    public Page<Automobile> findByMarca(String marca, int page, int size) {
         return null;
     }
+
 }
