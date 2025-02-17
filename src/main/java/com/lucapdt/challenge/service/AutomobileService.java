@@ -14,8 +14,10 @@ public interface AutomobileService {
 
     void deleteById(int id);
 
-    Optional<List<Automobile>> findAll();
+    List<Automobile> findAll();
 
-    Optional<Page<Automobile>> findAll(int page, int size);
+    Page<Automobile> findAll(int page, int size);
+
+    Page<Automobile> findByMarca(String marca);
 
 }

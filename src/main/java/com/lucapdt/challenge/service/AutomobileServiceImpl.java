@@ -41,12 +41,17 @@ public class AutomobileServiceImpl implements AutomobileService{
     }
 
     @Override
-    public Optional<List<Automobile>> findAll() {
-        return Optional.of(automobileRepository.findAll());
+    public List<Automobile> findAll() {
+        return automobileRepository.findAll();
     }
 
     @Override
-    public Optional<Page<Automobile>> findAll(int page, int size) {
-        return Optional.of(automobileRepository.findAll(PageRequest.of(page, size)));
+    public Page<Automobile> findAll(int page, int size) {
+        return automobileRepository.findAll(PageRequest.of(page, size));
+    }
+
+    @Override
+    public Page<Automobile> findByMarca(String marca) {
+        return null;
     }
 }
