@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface AutomobileService {
 
-    Optional<Automobile> findById(int id);
+    Automobile findById(int id);
 
-    Optional<Automobile> save(Automobile auto);
+    Automobile save(Automobile auto);
 
     void deleteById(int id);
 

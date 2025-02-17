@@ -37,12 +37,12 @@ public class AutomobileServiceTest {
     @Test
     void findByIdTest(){
         Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
-        Optional<Automobile> expected = Optional.of(auto);
+        Optional<Automobile> optionalAutomobile = Optional.of(auto);
 
-        when(automobileRepository.findById(1)).thenReturn(expected);
+        when(automobileRepository.findById(1)).thenReturn(optionalAutomobile);
         when(automobileRepository.findById(2)).thenReturn(Optional.empty());
 
-        assertThat(automobileService.findById(1)).isEqualTo(expected);
+        assertThat(automobileService.findById(1)).isEqualTo(auto);
         assertThatThrownBy(() -> automobileService.findById(2))
                 .isInstanceOf(AutomobileNotFoundException.class)
                 .hasMessage("Non e' stata trovata una automobile per l'id inserito");
@@ -53,10 +53,9 @@ public class AutomobileServiceTest {
     void saveTest(){
 
         Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
-        Optional<Automobile> expected = Optional.of(auto);
 
         when(automobileRepository.save(auto)).thenReturn(auto);
-        assertThat(automobileService.save(auto)).isEqualTo(expected);
+        assertThat(automobileService.save(auto)).isEqualTo(auto);
     }
 
     @Test
