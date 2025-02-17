@@ -62,7 +62,7 @@ public class AutomobileServiceImpl implements AutomobileService{
 
     @Override
     public Page<Automobile> findByStato(Automobile.StatoAuto stato, int page, int size) {
-        return null;
+        return automobileRepository.findByStato(stato, PageRequest.of(page, size));
     }
 
 }
