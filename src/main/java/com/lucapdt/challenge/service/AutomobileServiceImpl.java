@@ -5,6 +5,7 @@ import com.lucapdt.challenge.model.entity.Automobile;
 import com.lucapdt.challenge.repository.AutomobileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,6 @@ public class AutomobileServiceImpl implements AutomobileService{
 
     @Override
     public Optional<Page<Automobile>> findAll(int page, int size) {
-        return Optional.empty();
+        return Optional.of(automobileRepository.findAll(PageRequest.of(page, size)));
     }
 }
