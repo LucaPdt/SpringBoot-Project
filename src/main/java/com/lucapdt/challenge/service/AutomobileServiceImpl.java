@@ -23,4 +23,9 @@ public class AutomobileServiceImpl implements AutomobileService{
 
         return optionalAutomobile;
     }
+
+    @Override
+    public Optional<Automobile> save(Automobile auto) {
+        return Optional.empty();
+    }
 }

@@ -42,4 +42,14 @@ public class AutomobileServiceTest {
                 .hasMessage("Non e' stata trovata una automobile per l'id inserito");
 
     }
+
+    @Test
+    void saveTest(){
+
+        Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
+        Optional<Automobile> expected = Optional.of(auto);
+
+        when(automobileRepository.save(auto)).thenReturn(auto);
+        assertThat(automobileService.save(auto)).isEqualTo(expected);
+    }
 }

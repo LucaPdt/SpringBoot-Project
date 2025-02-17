@@ -8,4 +8,6 @@ public interface AutomobileService {
 
     Optional<Automobile> findById(int id);
 
+    Optional<Automobile> save(Automobile auto);
+
 }
