@@ -36,13 +36,12 @@ public class AutomobileCommandTest {
     @Test
     void findByIdTest(){
         Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
-        Optional<Automobile> optionalAuto = Optional.of(auto);
 
-        AutomobileDTO excpected = new AutomobileDTO(1, "Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
+        AutomobileDTO excpected = new AutomobileDTO(0, "Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
 
-        when(automobileService.findById(1)).thenReturn(optionalAuto);
+        when(automobileService.findById(0)).thenReturn(auto);
 
-        assertThat(automobileCommand.findById(1)).isEqualTo(excpected);
+        assertThat(automobileCommand.findById(0)).isEqualTo(excpected);
     }
 
 }
