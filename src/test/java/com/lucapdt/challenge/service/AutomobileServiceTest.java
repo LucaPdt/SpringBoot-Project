@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,5 +65,19 @@ public class AutomobileServiceTest {
                 .isInstanceOf(AutomobileNotFoundException.class)
                 .hasMessage("Non e' stata trovata una automobile per l'id inserito");
 
+    }
+
+    @Test
+    void findAllListTest(){
+        List<Automobile> automobileList = List.of(
+                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile),
+                new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile)
+        );
+
+        Optional<List<Automobile>> expected = Optional.of(automobileList);
+
+        when(automobileRepository.findAll()).thenReturn(automobileList);
+
+        assertThat(automobileService.findAll().get()).containsExactlyElementsOf(expected.get());
     }
 }

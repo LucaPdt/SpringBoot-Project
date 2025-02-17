@@ -6,6 +6,7 @@ import com.lucapdt.challenge.repository.AutomobileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,14 @@ public class AutomobileServiceImpl implements AutomobileService{
 
     @Override
     public void deleteById(int id) {
+        if(!automobileRepository.existsById(id))
+            throw new AutomobileNotFoundException("Non e' stata trovata una automobile per l'id inserito");
 
+        automobileRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<List<Automobile>> findAll() {
+        return Optional.empty();
     }
 }
