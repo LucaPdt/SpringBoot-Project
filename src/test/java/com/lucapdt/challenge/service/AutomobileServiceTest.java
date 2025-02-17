@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -79,5 +83,23 @@ public class AutomobileServiceTest {
         when(automobileRepository.findAll()).thenReturn(automobileList);
 
         assertThat(automobileService.findAll().get()).containsExactlyElementsOf(expected.get());
+    }
+
+    @Test
+    void findAllPageTest(){
+        List<Automobile> automobileList = List.of(
+                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile),
+                new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile)
+        );
+
+        Pageable pageable = PageRequest.of(0,2);
+        Page<Automobile> page = new PageImpl<>(automobileList, pageable, automobileList.size());
+        when(automobileRepository.findAll(pageable)).thenReturn(page);
+
+        Optional<Page<Automobile>> result = automobileService.findAll(0,2);
+
+        assertThat(result).isNotNull();
+        assertThat(result.get().getContent()).hasSize(2);
+        assertThat(result.get().getContent()).containsExactlyElementsOf(automobileList);
     }
 }
