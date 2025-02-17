@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class AutomobileServiceTest {
@@ -51,5 +52,17 @@ public class AutomobileServiceTest {
 
         when(automobileRepository.save(auto)).thenReturn(auto);
         assertThat(automobileService.save(auto)).isEqualTo(expected);
+    }
+
+    @Test
+    void deleteTest(){
+        int id = 1;
+        when(automobileRepository.existsById(id)).thenReturn(true);
+        automobileService.deleteById(id);
+        verify(automobileRepository).deleteById(id);
+        assertThatThrownBy(() -> automobileService.deleteById(2))
+                .isInstanceOf(AutomobileNotFoundException.class)
+                .hasMessage("Non e' stata trovata una automobile per l'id inserito");
+
     }
 }

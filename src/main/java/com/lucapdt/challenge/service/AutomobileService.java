@@ -10,4 +10,6 @@ public interface AutomobileService {
 
     Optional<Automobile> save(Automobile auto);
 
+    void deleteById(int id);
+
 }
