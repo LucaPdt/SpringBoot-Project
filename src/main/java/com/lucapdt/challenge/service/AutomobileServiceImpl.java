@@ -26,6 +26,6 @@ public class AutomobileServiceImpl implements AutomobileService{
 
     @Override
     public Optional<Automobile> save(Automobile auto) {
-        return Optional.empty();
+        return Optional.of(automobileRepository.save(auto));
     }
 }
