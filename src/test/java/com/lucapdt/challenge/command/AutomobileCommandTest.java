@@ -13,9 +13,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.swing.text.html.Option;
+import java.time.Year;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,9 +37,9 @@ public class AutomobileCommandTest {
 
     @Test
     void findByIdTest(){
-        Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
+        Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile);
 
-        AutomobileDTO excpected = new AutomobileDTO(0, "Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
+        AutomobileDTO excpected = new AutomobileDTO(0, "Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile);
 
         when(automobileService.findById(0)).thenReturn(auto);
 

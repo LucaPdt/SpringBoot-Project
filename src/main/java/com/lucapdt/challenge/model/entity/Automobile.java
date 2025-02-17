@@ -2,6 +2,9 @@ package com.lucapdt.challenge.model.entity;
 
 import jakarta.persistence.*;
 
+import java.time.Year;
+
+
 @Entity
 @Table(name = "automobile")
 public class Automobile {
@@ -21,7 +24,7 @@ public class Automobile {
     private String motorizzazione;
 
     @Column(name = "anno")
-    private int anno;
+    private Year anno;
 
     @Column(name = "prezzo")
     private double prezzo;
@@ -33,7 +36,7 @@ public class Automobile {
     public Automobile() {
     }
 
-    public Automobile(String marca, String modello, String motorizzazione, int anno, double prezzo, StatoAuto stato) {
+    public Automobile(String marca, String modello, String motorizzazione, Year anno, double prezzo, StatoAuto stato) {
         this.marca = marca;
         this.modello = modello;
         this.motorizzazione = motorizzazione;
@@ -70,11 +73,11 @@ public class Automobile {
         this.motorizzazione = motorizzazione;
     }
 
-    public int getAnno() {
+    public Year getAnno() {
         return anno;
     }
 
-    public void setAnno(int anno) {
+    public void setAnno(Year anno) {
         this.anno = anno;
     }
 
