@@ -134,4 +134,21 @@ public class AutomobileServiceTest {
         assertThat(result.get()).hasSize(2);
         assertThat(result.get()).containsExactlyElementsOf(automobileList);
     }
+
+    @Test
+    void findAutomobiliByStatoTest(){
+        List<Automobile> automobileList = List.of(
+                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile),
+                new Automobile("Alfa Romeo", "Giulia", "Giulia 2.2 Turbodiesel 160 CV AT8", 2023, 17500.00, Automobile.StatoAuto.disponibile)
+        );
+
+        Pageable pageable = PageRequest.of(0,2);
+        Page<Automobile> page = new PageImpl<>(automobileList, pageable, automobileList.size());
+        when(automobileRepository.findByStato(Automobile.StatoAuto.disponibile, pageable)).thenReturn(page);
+
+        Page<Automobile> result = automobileService.findByStato(Automobile.StatoAuto.disponibile, 0, 2);
+        assertThat(result).isNotNull();
+        assertThat(result.get()).hasSize(2);
+        assertThat(result.get()).containsExactlyElementsOf(automobileList);
+    }
 }

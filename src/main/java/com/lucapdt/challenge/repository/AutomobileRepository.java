@@ -12,4 +12,6 @@ public interface AutomobileRepository extends JpaRepository<Automobile, Integer>
     Page<Automobile> findByMarca(String marca, Pageable pageable);
 
     Page<Automobile> findByPrezzoBetween(double prezzoMin, double prezzoMax, Pageable pageable);
+
+    Page<Automobile> findByStato(Automobile.StatoAuto stato, Pageable pageable);
 }
