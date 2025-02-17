@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface AutomobileRepository extends JpaRepository<Automobile, Integer> {
 
     Page<Automobile> findByMarca(String marca, Pageable pageable);
+
+    Page<Automobile> findByPrezzoBetween(double prezzoMin, double prezzoMax, Pageable pageable);
 }

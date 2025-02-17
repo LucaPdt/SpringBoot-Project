@@ -20,4 +20,5 @@ public interface AutomobileService {
 
     Page<Automobile> findByMarca(String marca, int page, int size);
 
+    Page<Automobile> findByPrezzoBetween(double prezzoMin, double prezzoMax,int page, int size);
 }

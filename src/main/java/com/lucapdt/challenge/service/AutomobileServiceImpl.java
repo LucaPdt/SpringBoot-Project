@@ -55,4 +55,9 @@ public class AutomobileServiceImpl implements AutomobileService{
         return automobileRepository.findByMarca(marca, PageRequest.of(page, size));
     }
 
+    @Override
+    public Page<Automobile> findByPrezzoBetween(double prezzoMin, double prezzoMax, int page, int size) {
+        return null;
+    }
+
 }
