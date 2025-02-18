@@ -61,8 +61,23 @@ public class AutomobileCommandImpl implements AutomobileCommand{
     }
 
     @Override
-    public AutomobileResponse findByMarca(String fiat, int page, int size) {
-        return null;
+    public AutomobileResponse findByMarca(String marca, int page, int size) {
+        Page<Automobile> automobili = automobileService.findByMarca(marca, page, size);
+
+        List<AutomobileDTO> content = automobili.getContent()
+                .stream().map(this::mapToDTO)
+                .toList();
+
+        AutomobileResponse response = new AutomobileResponse();
+
+        response.setContent(content);
+        response.setPageNo(automobili.getNumber());
+        response.setPageSize(automobili.getSize());
+        response.setTotalElements(automobili.getTotalElements());
+        response.setTotalPages(automobili.getTotalPages());
+        response.setLast(automobili.isLast());
+
+        return response;
     }
 
     private AutomobileDTO mapToDTO(Automobile auto) {

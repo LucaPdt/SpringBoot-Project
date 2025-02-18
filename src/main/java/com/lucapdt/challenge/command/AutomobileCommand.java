@@ -18,5 +18,5 @@ public interface AutomobileCommand {
 
     List<AutomobileDTO> findAll();
 
-    AutomobileResponse findByMarca(String fiat, int page, int size);
+    AutomobileResponse findByMarca(String marca, int page, int size);
 }
