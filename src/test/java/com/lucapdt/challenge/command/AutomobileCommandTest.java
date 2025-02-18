@@ -97,4 +97,13 @@ public class AutomobileCommandTest {
         assertThat(expected).isNotNull();
     }
 
+    @Test
+    void findByStatoTest(){
+        Page<Automobile> automobilePage = mock();
+        when(automobileService.findByStato(Automobile.StatoAuto.disponibile, 1, 2)).thenReturn(automobilePage);
+
+        AutomobileResponse expected = automobileCommand.findByStato(Automobile.StatoAuto.disponibile, 1, 2);
+        assertThat(expected).isNotNull();
+    }
+
 }

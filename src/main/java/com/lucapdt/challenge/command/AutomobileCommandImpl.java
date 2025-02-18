@@ -61,6 +61,11 @@ public class AutomobileCommandImpl implements AutomobileCommand{
         return mapToAutomobileResponse(automobili);
     }
 
+    @Override
+    public AutomobileResponse findByStato(Automobile.StatoAuto stato, int page, int size) {
+        return null;
+    }
+
     private AutomobileResponse mapToAutomobileResponse(Page<Automobile> automobili) {
         List<AutomobileDTO> content = automobili.getContent()
                 .stream().map(this::mapToDTO)

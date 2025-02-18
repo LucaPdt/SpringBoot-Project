@@ -21,4 +21,6 @@ public interface AutomobileCommand {
     AutomobileResponse findByMarca(String marca, int page, int size);
 
     AutomobileResponse findByPrezzoBetween(double prezzoMin, double prezzoMax,int page, int size);
+
+    AutomobileResponse findByStato(Automobile.StatoAuto stato, int page, int size);
 }
