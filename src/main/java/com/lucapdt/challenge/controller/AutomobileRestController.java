@@ -60,4 +60,33 @@ public class AutomobileRestController {
     ){
         return ResponseEntity.ok(automobileCommand.findAll(page,size));
     }
+
+    @GetMapping("/automobili/marca")
+    public ResponseEntity<AutomobileResponse> findByMarca(
+            @RequestParam(value = "marca") String marca,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ){
+        return ResponseEntity.ok(automobileCommand.findByMarca(marca, page, size));
+
+    }
+
+    @GetMapping("/automobili/prezzo")
+    public ResponseEntity<AutomobileResponse> findByPrezzoBetween(
+            @RequestParam(value = "prezzoMin") double prezzoMin,
+            @RequestParam(value = "prezzoMax") double prezzoMax,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ){
+        return ResponseEntity.ok(automobileCommand.findByPrezzoBetween(prezzoMin, prezzoMax, page, size));
+    }
+
+    @GetMapping("/automobili/stato")
+    public ResponseEntity<AutomobileResponse> findByStato(
+            @RequestParam(value = "stato") Automobile.StatoAuto stato,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ){
+        return ResponseEntity.ok(automobileCommand.findByStato(stato, page, size));
+    }
 }
