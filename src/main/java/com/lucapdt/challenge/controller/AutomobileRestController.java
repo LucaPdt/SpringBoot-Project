@@ -16,7 +16,7 @@ public class AutomobileRestController {
     private AutomobileCommand automobileCommand;
 
     @GetMapping("/automobili/{id}")
-    public ResponseEntity<AutomobileDTO> getAutomobileById(@PathVariable int id) {
+    public ResponseEntity<AutomobileDTO> getAutomobileById(@PathVariable("id") int id) {
 //        ResponseEntity<AutomobileDTO> response;
 //
 //        try{
@@ -32,5 +32,10 @@ public class AutomobileRestController {
     @PostMapping("/automobili")
     public ResponseEntity<AutomobileDTO> createAutomobile(@RequestBody AutomobileDTO automobileDTO){
         return new ResponseEntity<>(automobileCommand.save(automobileDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/automobili/{id}")
+    public ResponseEntity<AutomobileDTO> updateAutomobile( @PathVariable("id") int id, @RequestBody AutomobileDTO automobileDTO){
+        return ResponseEntity.ok(automobileCommand.update(id, automobileDTO));
     }
 }
