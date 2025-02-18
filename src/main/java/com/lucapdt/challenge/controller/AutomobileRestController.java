@@ -35,7 +35,13 @@ public class AutomobileRestController {
     }
 
     @PutMapping("/automobili/{id}")
-    public ResponseEntity<AutomobileDTO> updateAutomobile( @PathVariable("id") int id, @RequestBody AutomobileDTO automobileDTO){
+    public ResponseEntity<AutomobileDTO> updateAutomobile(@PathVariable("id") int id, @RequestBody AutomobileDTO automobileDTO){
         return ResponseEntity.ok(automobileCommand.update(id, automobileDTO));
+    }
+
+    @DeleteMapping("/automobili/{id}")
+    public ResponseEntity<String> deleteAutomobile(@PathVariable("id") int id){
+        automobileCommand.deleteById(id);
+        return new ResponseEntity<>("Automobile delete", HttpStatus.OK);
     }
 }
