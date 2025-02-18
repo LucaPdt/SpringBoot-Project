@@ -2,8 +2,11 @@ package com.lucapdt.challenge.command;
 
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
 import com.lucapdt.challenge.model.entity.Automobile;
+import com.lucapdt.challenge.model.response.AutomobileResponse;
 import com.lucapdt.challenge.service.AutomobileService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public class AutomobileCommandImpl implements AutomobileCommand{
 
@@ -26,6 +29,16 @@ public class AutomobileCommandImpl implements AutomobileCommand{
     @Override
     public void deleteById(int id) {
         automobileService.deleteById(id);
+    }
+
+    @Override
+    public AutomobileResponse findAll(int page, int size) {
+        return null;
+    }
+
+    @Override
+    public List<AutomobileDTO> findAll() {
+        return null;
     }
 
     private AutomobileDTO mapToDTO(Automobile auto) {
