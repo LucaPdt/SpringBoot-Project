@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.Year;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -94,6 +95,20 @@ public class AutomobileControllerTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
                 .isEqualTo(objectMapper.writeValueAsString(automobileDTO));
+    }
+
+    @Test
+    void deleteById() throws Exception {
+        doNothing().when(automobileCommand).deleteById(0);
+
+        MockHttpServletResponse response = mockmvc.perform(
+                        delete("/api/automobili/1")
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo("Automobile delete");
     }
 
 }
