@@ -19,7 +19,8 @@ public class AutomobileCommandImpl implements AutomobileCommand{
 
     @Override
     public AutomobileDTO save(AutomobileDTO input) {
-        return null;
+        Automobile saved = automobileService.save(mapToEntity(input));
+        return mapToDTO(saved);
     }
 
     private AutomobileDTO mapToDTO(Automobile auto) {
@@ -34,5 +35,24 @@ public class AutomobileCommandImpl implements AutomobileCommand{
         dto.setStato(auto.getStato());
 
         return dto;
+    }
+
+    private Automobile mapToEntity(AutomobileDTO dto){
+        Automobile entity = new Automobile();
+
+        if (dto.getMarca() != null)
+            entity.setMarca(dto.getMarca());
+        if (dto.getModello() != null)
+            entity.setModello(dto.getModello());
+        if (dto.getAnno() != null)
+            entity.setAnno(dto.getAnno());
+        if (dto.getMotorizzazione() != null)
+            entity.setMotorizzazione(dto.getMotorizzazione());
+        if (dto.getPrezzo() != null)
+            entity.setPrezzo(dto.getPrezzo());
+        if (dto.getStato() != null)
+            entity.setStato(dto.getStato());
+
+        return entity;
     }
 }
