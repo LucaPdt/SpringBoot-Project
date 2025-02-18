@@ -26,6 +26,7 @@ import java.time.Year;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
 @WebMvcTest(AutomobileRestController.class)
@@ -65,4 +66,20 @@ public class AutomobileControllerTest {
         assertThat(response.getContentAsString())
                 .isEqualTo(objectMapper.writeValueAsString(automobileDTO));
     }
+
+    @Test
+    void saveTest() throws Exception {
+        when(automobileCommand.save(automobileDTO)).thenReturn(automobileDTO);
+
+        MockHttpServletResponse response = mockmvc.perform(
+                        post("/api/automobili")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(automobileDTO)))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(response.getContentAsString())
+                .isEqualTo(objectMapper.writeValueAsString(automobileDTO));
+    }
+
 }
