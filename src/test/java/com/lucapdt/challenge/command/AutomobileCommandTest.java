@@ -70,7 +70,7 @@ public class AutomobileCommandTest {
         Page<Automobile> automobilePage = mock();
         List<Automobile> automobileList = mock();
 
-        when(automobileService.findAll(eq(any()), eq(any()))).thenReturn(automobilePage);
+        when(automobileService.findAll(1, 2)).thenReturn(automobilePage);
         when(automobileService.findAll()).thenReturn(automobileList);
 
         AutomobileResponse expected = automobileCommand.findAll(1, 2);

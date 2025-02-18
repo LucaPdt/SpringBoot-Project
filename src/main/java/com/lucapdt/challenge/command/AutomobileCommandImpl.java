@@ -5,8 +5,10 @@ import com.lucapdt.challenge.model.entity.Automobile;
 import com.lucapdt.challenge.model.response.AutomobileResponse;
 import com.lucapdt.challenge.service.AutomobileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AutomobileCommandImpl implements AutomobileCommand{
 
@@ -33,12 +35,29 @@ public class AutomobileCommandImpl implements AutomobileCommand{
 
     @Override
     public AutomobileResponse findAll(int page, int size) {
-        return null;
+        Page<Automobile> automobili = automobileService.findAll(page, size);
+
+        List<AutomobileDTO> content = automobili.getContent()
+                .stream().map(this::mapToDTO)
+                .toList();
+
+        AutomobileResponse response = new AutomobileResponse();
+
+        response.setContent(content);
+        response.setPageNo(automobili.getNumber());
+        response.setPageSize(automobili.getSize());
+        response.setTotalElements(automobili.getTotalElements());
+        response.setTotalPages(automobili.getTotalPages());
+        response.setLast(automobili.isLast());
+
+        return response;
     }
 
     @Override
     public List<AutomobileDTO> findAll() {
-        return null;
+        List<Automobile> automobili = automobileService.findAll();
+        return automobili.stream().map(this::mapToDTO)
+                .toList();
     }
 
     private AutomobileDTO mapToDTO(Automobile auto) {
