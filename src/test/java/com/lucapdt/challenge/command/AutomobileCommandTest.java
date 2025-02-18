@@ -88,4 +88,13 @@ public class AutomobileCommandTest {
         assertThat(expected).isNotNull();
     }
 
+    @Test
+    void findByPrezzoBetweenTest(){
+        Page<Automobile> automobilePage = mock();
+        when(automobileService.findByPrezzoBetween(0, 10000, 1, 2)).thenReturn(automobilePage);
+
+        AutomobileResponse expected = automobileCommand.findByPrezzoBetween(0, 10000, 1, 2);
+        assertThat(expected).isNotNull();
+    }
+
 }

@@ -19,4 +19,6 @@ public interface AutomobileCommand {
     List<AutomobileDTO> findAll();
 
     AutomobileResponse findByMarca(String marca, int page, int size);
+
+    AutomobileResponse findByPrezzoBetween(double prezzoMin, double prezzoMax,int page, int size);
 }

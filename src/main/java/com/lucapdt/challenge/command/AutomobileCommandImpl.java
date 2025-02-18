@@ -54,6 +54,11 @@ public class AutomobileCommandImpl implements AutomobileCommand{
         return mapToAutomobileResponse(automobili);
     }
 
+    @Override
+    public AutomobileResponse findByPrezzoBetween(double prezzoMin, double prezzoMax, int page, int size) {
+        return null;
+    }
+
     private AutomobileResponse mapToAutomobileResponse(Page<Automobile> automobili) {
         List<AutomobileDTO> content = automobili.getContent()
                 .stream().map(this::mapToDTO)
