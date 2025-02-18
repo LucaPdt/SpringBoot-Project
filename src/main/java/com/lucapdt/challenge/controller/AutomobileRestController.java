@@ -2,6 +2,7 @@ package com.lucapdt.challenge.controller;
 
 import com.lucapdt.challenge.command.AutomobileCommand;
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
+import com.lucapdt.challenge.model.response.AutomobileResponse;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,5 +51,13 @@ public class AutomobileRestController {
     @GetMapping("/automobili/list")
     public ResponseEntity<List<AutomobileDTO>> findAllList(){
         return ResponseEntity.ok(automobileCommand.findAll());
+    }
+
+    @GetMapping("/automobili")
+    public ResponseEntity<AutomobileResponse> findAll(
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) int size
+    ){
+        return ResponseEntity.ok(automobileCommand.findAll(page,size));
     }
 }
