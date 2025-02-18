@@ -145,5 +145,23 @@ public class AutomobileControllerTest {
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expected));
     }
 
+    @Test
+    void findByMarcaTest() throws Exception {
+        AutomobileResponse expected = AutomobileResponse.builder().pageSize(10).last(true).pageNo(1).content(List.of(automobileDTO)).build();
+
+        when(automobileCommand.findByMarca("Fiat", 1,10)).thenReturn(expected);
+
+        MockHttpServletResponse response = mockmvc.perform(
+                        get("/api/automobili/marca")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .param("marca", "Fiat")
+                                .param("page", "1")
+                                .param("size", "10"))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expected));
+    }
+
 
 }
