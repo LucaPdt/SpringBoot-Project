@@ -18,8 +18,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class AutomobileCommandTest {
 
@@ -54,6 +53,13 @@ public class AutomobileCommandTest {
         AutomobileDTO expected = new AutomobileDTO(0, "Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile);
         when(automobileService.save(any())).thenReturn(auto);
         assertThat(automobileCommand.save(input)).isEqualTo(expected);
+    }
+
+    @Test
+    void deleteTest(){
+        int id = 1;
+        automobileCommand.deleteById(id);
+        verify(automobileService).deleteById(id);
     }
 
 }

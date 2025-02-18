@@ -8,4 +8,6 @@ public interface AutomobileCommand {
     AutomobileDTO findById(int id);
 
     AutomobileDTO save(AutomobileDTO input);
+
+    void deleteById(int id);
 }

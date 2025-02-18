@@ -23,6 +23,10 @@ public class AutomobileCommandImpl implements AutomobileCommand{
         return mapToDTO(saved);
     }
 
+    @Override
+    public void deleteById(int id) {
+    }
+
     private AutomobileDTO mapToDTO(Automobile auto) {
         AutomobileDTO dto = new AutomobileDTO();
 
