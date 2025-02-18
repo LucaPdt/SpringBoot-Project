@@ -119,7 +119,7 @@ public class AutomobileControllerTest {
         when(automobileCommand.findAll()).thenReturn(automobileList);
 
         MockHttpServletResponse response = mockmvc.perform(
-                        get("/api/automobili")
+                        get("/api/automobili/list")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 

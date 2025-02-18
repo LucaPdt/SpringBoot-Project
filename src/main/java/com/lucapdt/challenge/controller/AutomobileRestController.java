@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class AutomobileRestController {
@@ -43,5 +45,10 @@ public class AutomobileRestController {
     public ResponseEntity<String> deleteAutomobile(@PathVariable("id") int id){
         automobileCommand.deleteById(id);
         return new ResponseEntity<>("Automobile delete", HttpStatus.OK);
+    }
+
+    @GetMapping("/automobili/list")
+    public ResponseEntity<List<AutomobileDTO>> findAllList(){
+        return ResponseEntity.ok(automobileCommand.findAll());
     }
 }
