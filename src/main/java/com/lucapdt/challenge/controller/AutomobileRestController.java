@@ -2,6 +2,7 @@ package com.lucapdt.challenge.controller;
 
 import com.lucapdt.challenge.command.AutomobileCommand;
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
+import com.lucapdt.challenge.model.entity.Automobile;
 import com.lucapdt.challenge.model.response.AutomobileResponse;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
