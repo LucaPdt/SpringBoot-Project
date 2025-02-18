@@ -60,6 +60,11 @@ public class AutomobileCommandImpl implements AutomobileCommand{
                 .toList();
     }
 
+    @Override
+    public AutomobileResponse findByMarca(String fiat, int page, int size) {
+        return null;
+    }
+
     private AutomobileDTO mapToDTO(Automobile auto) {
         AutomobileDTO dto = new AutomobileDTO();
 

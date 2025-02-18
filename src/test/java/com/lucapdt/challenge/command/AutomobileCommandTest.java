@@ -79,4 +79,13 @@ public class AutomobileCommandTest {
         assertThat(expected).isNotNull();
     }
 
+    @Test
+    void findByMarcaTest(){
+        Page<Automobile> automobilePage = mock();
+        when(automobileService.findByMarca("fiat", 1, 2)).thenReturn(automobilePage);
+
+        AutomobileResponse expected = automobileCommand.findByMarca("fiat", 1, 2);
+        assertThat(expected).isNotNull();
+    }
+
 }
