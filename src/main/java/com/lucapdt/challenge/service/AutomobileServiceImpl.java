@@ -18,18 +18,18 @@ public class AutomobileServiceImpl implements AutomobileService{
     private AutomobileRepository automobileRepository;
 
     @Override
-    public Optional<Automobile> findById(int id) {
+    public Automobile findById(int id) {
 
         Optional<Automobile> optionalAutomobile = automobileRepository.findById(id);
         if(optionalAutomobile.isEmpty())
             throw new AutomobileNotFoundException("Non e' stata trovata una automobile per l'id inserito");
 
-        return optionalAutomobile;
+        return optionalAutomobile.get();
     }
 
     @Override
-    public Optional<Automobile> save(Automobile auto) {
-        return Optional.of(automobileRepository.save(auto));
+    public Automobile save(Automobile auto) {
+        return automobileRepository.save(auto);
     }
 
     @Override

@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,13 +37,13 @@ public class AutomobileServiceTest {
 
     @Test
     void findByIdTest(){
-        Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
-        Optional<Automobile> expected = Optional.of(auto);
+        Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile);
+        Optional<Automobile> optionalAutomobile = Optional.of(auto);
 
-        when(automobileRepository.findById(1)).thenReturn(expected);
+        when(automobileRepository.findById(1)).thenReturn(optionalAutomobile);
         when(automobileRepository.findById(2)).thenReturn(Optional.empty());
 
-        assertThat(automobileService.findById(1)).isEqualTo(expected);
+        assertThat(automobileService.findById(1)).isEqualTo(auto);
         assertThatThrownBy(() -> automobileService.findById(2))
                 .isInstanceOf(AutomobileNotFoundException.class)
                 .hasMessage("Non e' stata trovata una automobile per l'id inserito");
@@ -52,11 +53,10 @@ public class AutomobileServiceTest {
     @Test
     void saveTest(){
 
-        Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile);
-        Optional<Automobile> expected = Optional.of(auto);
+        Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile);
 
         when(automobileRepository.save(auto)).thenReturn(auto);
-        assertThat(automobileService.save(auto)).isEqualTo(expected);
+        assertThat(automobileService.save(auto)).isEqualTo(auto);
     }
 
     @Test
@@ -74,8 +74,8 @@ public class AutomobileServiceTest {
     @Test
     void findAllListTest(){
         List<Automobile> automobileList = List.of(
-                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile),
-                new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile)
+                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile),
+                new Automobile("Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile)
         );
 
         when(automobileRepository.findAll()).thenReturn(automobileList);
@@ -86,8 +86,8 @@ public class AutomobileServiceTest {
     @Test
     void findAllPageTest(){
         List<Automobile> automobileList = List.of(
-                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile),
-                new Automobile("Fiat", "Panda", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile)
+                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile),
+                new Automobile("Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile)
         );
 
         Pageable pageable = PageRequest.of(0,2);
@@ -104,8 +104,8 @@ public class AutomobileServiceTest {
     @Test
     void findByMarcaTest(){
         List<Automobile> automobileList = List.of(
-                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile),
-                new Automobile("Alfa Romeo", "Giulia", "Giulia 2.2 Turbodiesel 160 CV AT8", 2023, 17500.00, Automobile.StatoAuto.disponibile)
+                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile),
+                new Automobile("Alfa Romeo", "Giulia", "Giulia 2.2 Turbodiesel 160 CV AT8", Year.of(2023), 17500.00, Automobile.StatoAuto.disponibile)
         );
 
         Pageable pageable = PageRequest.of(0,2);
@@ -121,8 +121,8 @@ public class AutomobileServiceTest {
     @Test
     void findAutomobiliByPrezzoRangeTest(){
         List<Automobile> automobileList = List.of(
-                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile),
-                new Automobile("Alfa Romeo", "Giulia", "Giulia 2.2 Turbodiesel 160 CV AT8", 2023, 17500.00, Automobile.StatoAuto.disponibile)
+                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile),
+                new Automobile("Alfa Romeo", "Giulia", "Giulia 2.2 Turbodiesel 160 CV AT8", Year.of(2023), 17500.00, Automobile.StatoAuto.disponibile)
         );
 
         Pageable pageable = PageRequest.of(0,2);
@@ -138,8 +138,8 @@ public class AutomobileServiceTest {
     @Test
     void findAutomobiliByStatoTest(){
         List<Automobile> automobileList = List.of(
-                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", 2011, 7500.00, Automobile.StatoAuto.disponibile),
-                new Automobile("Alfa Romeo", "Giulia", "Giulia 2.2 Turbodiesel 160 CV AT8", 2023, 17500.00, Automobile.StatoAuto.disponibile)
+                new Automobile("Alfa Romeo", "Giulietta", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile),
+                new Automobile("Alfa Romeo", "Giulia", "Giulia 2.2 Turbodiesel 160 CV AT8", Year.of(2023), 17500.00, Automobile.StatoAuto.disponibile)
         );
 
         Pageable pageable = PageRequest.of(0,2);
