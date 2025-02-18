@@ -29,6 +29,11 @@ public class AutomobileCommandImpl implements AutomobileCommand{
     }
 
     @Override
+    public AutomobileDTO update(int id, AutomobileDTO input) {
+        return null;
+    }
+
+    @Override
     public void deleteById(int id) {
         automobileService.deleteById(id);
     }

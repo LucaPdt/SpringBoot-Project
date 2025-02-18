@@ -106,4 +106,18 @@ public class AutomobileCommandTest {
         assertThat(expected).isNotNull();
     }
 
+    @Test
+    void updateTest() {
+        int id = 1;
+        Automobile auto = new Automobile("Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile);
+        AutomobileDTO expected = new AutomobileDTO(0, "Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile);
+
+        when(automobileService.findById(id)).thenReturn(auto);
+        when(automobileService.save(auto)).thenReturn(auto);
+
+        AutomobileDTO result = automobileCommand.update(id, expected);
+        assertThat(result).isEqualTo(expected);
+
+    }
+
 }

@@ -12,6 +12,8 @@ public interface AutomobileCommand {
 
     AutomobileDTO save(AutomobileDTO input);
 
+    AutomobileDTO update(int id, AutomobileDTO input);
+
     void deleteById(int id);
 
     AutomobileResponse findAll(int page, int size);
