@@ -71,7 +71,7 @@ public class AutomobileRestController {
 
     }
 
-    @GetMapping("/automobili/prezzo")
+    @GetMapping("/automobili/prezzo/range")
     public ResponseEntity<AutomobileResponse> findByPrezzoBetween(
             @RequestParam(value = "prezzoMin") double prezzoMin,
             @RequestParam(value = "prezzoMax") double prezzoMax,
