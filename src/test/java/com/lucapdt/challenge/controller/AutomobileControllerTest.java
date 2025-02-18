@@ -163,5 +163,24 @@ public class AutomobileControllerTest {
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expected));
     }
 
+    @Test
+    void findByPrezzoBetweenTest() throws Exception {
+        AutomobileResponse expected = AutomobileResponse.builder().pageSize(10).last(true).pageNo(1).content(List.of(automobileDTO)).build();
+
+        when(automobileCommand.findByPrezzoBetween(0, 10000, 1,10)).thenReturn(expected);
+
+        MockHttpServletResponse response = mockmvc.perform(
+                        get("/api/automobili/prezzo/range")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .param("prezzoMin", "0")
+                                .param("prezzoMax", "10000")
+                                .param("page", "1")
+                                .param("size", "10"))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expected));
+    }
+
 
 }
