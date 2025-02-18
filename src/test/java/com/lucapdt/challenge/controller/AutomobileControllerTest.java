@@ -1,5 +1,6 @@
 package com.lucapdt.challenge.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lucapdt.challenge.command.AutomobileCommand;
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
@@ -25,8 +26,7 @@ import java.time.Year;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
 @WebMvcTest(AutomobileRestController.class)
@@ -78,6 +78,20 @@ public class AutomobileControllerTest {
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(response.getContentAsString())
+                .isEqualTo(objectMapper.writeValueAsString(automobileDTO));
+    }
+
+    @Test
+    void updateTest() throws Exception {
+        when(automobileCommand.update(1, automobileDTO)).thenReturn(automobileDTO);
+        MockHttpServletResponse response = mockmvc.perform(
+                        put("/api/automobili/1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(automobileDTO)))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
                 .isEqualTo(objectMapper.writeValueAsString(automobileDTO));
     }
