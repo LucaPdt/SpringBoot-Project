@@ -63,7 +63,9 @@ public class AutomobileCommandImpl implements AutomobileCommand{
 
     @Override
     public AutomobileResponse findByStato(Automobile.StatoAuto stato, int page, int size) {
-        return null;
+        Page<Automobile> automobili = automobileService.findByStato(stato, page, size);
+
+        return mapToAutomobileResponse(automobili);
     }
 
     private AutomobileResponse mapToAutomobileResponse(Page<Automobile> automobili) {
