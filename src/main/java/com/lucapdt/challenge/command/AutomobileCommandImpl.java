@@ -25,6 +25,7 @@ public class AutomobileCommandImpl implements AutomobileCommand{
 
     @Override
     public void deleteById(int id) {
+        automobileService.deleteById(id);
     }
 
     private AutomobileDTO mapToDTO(Automobile auto) {
