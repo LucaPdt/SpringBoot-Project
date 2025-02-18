@@ -17,6 +17,11 @@ public class AutomobileCommandImpl implements AutomobileCommand{
         return mapToDTO(auto);
     }
 
+    @Override
+    public AutomobileDTO save(AutomobileDTO input) {
+        return null;
+    }
+
     private AutomobileDTO mapToDTO(Automobile auto) {
         AutomobileDTO dto = new AutomobileDTO();
 

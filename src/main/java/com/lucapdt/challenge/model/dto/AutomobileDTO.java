@@ -15,11 +15,11 @@ import java.time.Year;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AutomobileDTO {
-    private int id;
+    private Integer id;
     private String marca;
     private String modello;
     private String motorizzazione;
     private Year anno;
-    private double prezzo;
+    private Double prezzo;
     private Automobile.StatoAuto stato;
 }
