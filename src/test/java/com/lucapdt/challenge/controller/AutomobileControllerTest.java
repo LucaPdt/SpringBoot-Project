@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 import java.time.Year;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doNothing;
@@ -110,5 +111,21 @@ public class AutomobileControllerTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo("Automobile delete");
     }
+
+    @Test
+    void findAllListTest() throws Exception {
+        List<AutomobileDTO> automobileList = List.of(automobileDTO, automobileDTO);
+
+        when(automobileCommand.findAll()).thenReturn(automobileList);
+
+        MockHttpServletResponse response = mockmvc.perform(
+                        get("/api/automobili")
+                                .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(automobileList));
+    }
+
 
 }
