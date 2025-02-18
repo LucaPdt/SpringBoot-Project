@@ -37,20 +37,7 @@ public class AutomobileCommandImpl implements AutomobileCommand{
     public AutomobileResponse findAll(int page, int size) {
         Page<Automobile> automobili = automobileService.findAll(page, size);
 
-        List<AutomobileDTO> content = automobili.getContent()
-                .stream().map(this::mapToDTO)
-                .toList();
-
-        AutomobileResponse response = new AutomobileResponse();
-
-        response.setContent(content);
-        response.setPageNo(automobili.getNumber());
-        response.setPageSize(automobili.getSize());
-        response.setTotalElements(automobili.getTotalElements());
-        response.setTotalPages(automobili.getTotalPages());
-        response.setLast(automobili.isLast());
-
-        return response;
+        return mapToAutomobileResponse(automobili);
     }
 
     @Override
@@ -64,6 +51,10 @@ public class AutomobileCommandImpl implements AutomobileCommand{
     public AutomobileResponse findByMarca(String marca, int page, int size) {
         Page<Automobile> automobili = automobileService.findByMarca(marca, page, size);
 
+        return mapToAutomobileResponse(automobili);
+    }
+
+    private AutomobileResponse mapToAutomobileResponse(Page<Automobile> automobili) {
         List<AutomobileDTO> content = automobili.getContent()
                 .stream().map(this::mapToDTO)
                 .toList();
