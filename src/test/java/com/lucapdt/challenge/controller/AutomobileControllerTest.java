@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lucapdt.challenge.command.AutomobileCommand;
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
 import com.lucapdt.challenge.model.entity.Automobile;
+import com.lucapdt.challenge.model.response.AutomobileResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -125,6 +126,23 @@ public class AutomobileControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(automobileList));
+    }
+
+    @Test
+    void findAllPagingTest() throws Exception {
+        AutomobileResponse expected = AutomobileResponse.builder().pageSize(10).last(true).pageNo(1).content(List.of(automobileDTO)).build();
+
+        when(automobileCommand.findAll(1,10)).thenReturn(expected);
+
+        MockHttpServletResponse response = mockmvc.perform(
+                        get("/api/automobili")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .param("page", "1")
+                                .param("size", "10"))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(expected));
     }
 
 
