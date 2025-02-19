@@ -21,5 +21,16 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<HandlerResponse>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(RoleNameNotFoundException.class)
+    public ResponseEntity<HandlerResponse> handleRoleNameNotFoundException(RoleNameNotFoundException ex) {
+        HandlerResponse response = new HandlerResponse();
+
+        response.setStatusCode(HttpStatus.NOT_FOUND.value());
+        response.setMessage(ex.getMessage());
+        response.setTimestamp(new Date());
+
+        return new ResponseEntity<HandlerResponse>(response, HttpStatus.NOT_FOUND);
+    }
 }
 
