@@ -49,7 +49,7 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
 
     @Override
     public ResponseEntity<String> register(RegisterDTO registerDto) {
-        if(userEntityService.existByUsername(registerDto.getUsername()))
+        if(userEntityService.existsByUsername(registerDto.getUsername()))
             return new ResponseEntity<String>("Username non disponibile", HttpStatus.BAD_REQUEST);
 
         UserEntity user = new UserEntity();
@@ -65,7 +65,7 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
 
     @Override
     public ResponseEntity<String> registerRole(RegisterDTO registerDto) {
-        if(userEntityService.existByUsername(registerDto.getUsername()))
+        if(userEntityService.existsByUsername(registerDto.getUsername()))
             return new ResponseEntity<String>("Username non disponibile", HttpStatus.BAD_REQUEST);
 
         UserEntity user = new UserEntity();
