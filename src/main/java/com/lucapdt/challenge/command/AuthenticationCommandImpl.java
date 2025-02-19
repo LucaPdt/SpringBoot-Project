@@ -54,7 +54,7 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
 
         UserEntity user = new UserEntity();
         user.setUsername(registerDto.getUsername());
-        user.setPassword(registerDto.getPassword());
+        user.setPassword((passwordEncoder.encode(registerDto.getPassword())));
 
         Role role = roleService.findByName("USER");
         user.setRoles(Collections.singletonList(role));
@@ -70,7 +70,7 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
 
         UserEntity user = new UserEntity();
         user.setUsername(registerDto.getUsername());
-        user.setPassword(registerDto.getPassword());
+        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
         Role role = roleService.findByName(registerDto.getRole().getName());
         user.setRoles(Collections.singletonList(role));
