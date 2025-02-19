@@ -23,3 +23,11 @@ CREATE TABLE utenze (
     role_name VARCHAR(30),
     FOREIGN KEY (role_name) REFERENCES roles(name) ON DELETE SET NULL
 );
+
+CREATE TABLE user_roles (
+    username VARCHAR(50),
+    role_name VARCHAR(30),
+    PRIMARY KEY (username, role_name),
+    FOREIGN KEY (username) REFERENCES utenze(username) ON DELETE CASCADE,
+    FOREIGN KEY (role_name) REFERENCES roles(name) ON DELETE CASCADE
+);
