@@ -20,8 +20,6 @@ CREATE TABLE roles (
 CREATE TABLE utenze (
     username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
-    role_name VARCHAR(30),
-    FOREIGN KEY (role_name) REFERENCES roles(name) ON DELETE SET NULL
 );
 
 CREATE TABLE user_roles (
