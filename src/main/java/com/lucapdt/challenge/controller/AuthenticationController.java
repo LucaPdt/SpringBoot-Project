@@ -28,4 +28,9 @@ public class AuthenticationController {
     public ResponseEntity<String> register(@RequestBody RegisterDTO registerDto){
         return authenticationCommand.register(registerDto);
     }
+
+    @PostMapping("register/role")
+    public ResponseEntity<String> registerRole(@RequestBody RegisterDTO registerDto) {
+        return authenticationCommand.registerRole(registerDto);
+    }
 }

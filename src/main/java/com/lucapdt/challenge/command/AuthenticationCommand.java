@@ -10,4 +10,6 @@ public interface AuthenticationCommand {
     AuthResponseDTO login(LoginDTO loginDto);
 
     ResponseEntity<String> register(RegisterDTO registerDto);
+
+    ResponseEntity<String> registerRole(RegisterDTO registerDto);
 }

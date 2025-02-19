@@ -60,4 +60,20 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
         userEntityService.save(user);
         return new ResponseEntity<>("Utente registrato con successo", HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<String> registerRole(RegisterDTO registerDto) {
+        if(userEntityService.existByUsername(registerDto.getUsername()))
+            return new ResponseEntity<String>("Username non disponibile", HttpStatus.BAD_REQUEST);
+
+        UserEntity user = new UserEntity();
+        user.setUsername(registerDto.getUsername());
+        user.setPassword(registerDto.getPassword());
+
+        Role role = roleService.findByName(registerDto.getRole().getName());
+        user.setRoles(Collections.singletonList(role));
+
+        userEntityService.save(user);
+        return new ResponseEntity<>("Utenza registrato con successo", HttpStatus.OK);
+    }
 }
