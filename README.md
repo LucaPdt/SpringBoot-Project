@@ -91,7 +91,6 @@ Una esecuzione dei test corretta terminera' con una messaggi di questo tipo:
 [INFO] Total time:  7.552 s
 [INFO] Finished at: 2025-02-20T18:10:04+01:00
 [INFO] ------------------------------------------------------------------------
-
 ```
 
 ### 4.3: Avviare l'applicazione
