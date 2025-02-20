@@ -1,7 +1,3 @@
-CREATE DATABASE concessionaria;
---non utilizzo l'enum perche' crea problemi con JPA, le varie soluzioni provate creavano conflitti.
---CREATE TYPE StatoAuto AS ENUM ('disponibile', 'venduta');
-
 CREATE TABLE Automobile (
     id SERIAL PRIMARY KEY,
     marca VARCHAR(50) NOT NULL,
@@ -29,3 +25,7 @@ CREATE TABLE user_roles (
     FOREIGN KEY (username) REFERENCES utenze(username) ON DELETE CASCADE,
     FOREIGN KEY (role_name) REFERENCES roles(name) ON DELETE CASCADE
 );
+
+INSERT INTO roles (name) VALUES
+('ROLE_ADMIN'),
+('ROLE_USER');
