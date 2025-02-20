@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Date;
-import java.util.logging.Handler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

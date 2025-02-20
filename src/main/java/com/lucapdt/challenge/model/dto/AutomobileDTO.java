@@ -1,9 +1,6 @@
 package com.lucapdt.challenge.model.dto;
 
 import com.lucapdt.challenge.model.entity.Automobile;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

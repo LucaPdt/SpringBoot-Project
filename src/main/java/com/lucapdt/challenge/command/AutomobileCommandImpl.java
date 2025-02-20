@@ -9,13 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class AutomobileCommandImpl implements AutomobileCommand{
 
     @Autowired
-    AutomobileService automobileService;
+    private AutomobileService automobileService;
 
     @Override
     public AutomobileDTO findById(int id) {

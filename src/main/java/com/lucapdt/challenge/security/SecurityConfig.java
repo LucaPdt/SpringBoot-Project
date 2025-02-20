@@ -1,7 +1,6 @@
 package com.lucapdt.challenge.security;
 
 import com.lucapdt.challenge.service.CustomUserDetailsService;
-import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

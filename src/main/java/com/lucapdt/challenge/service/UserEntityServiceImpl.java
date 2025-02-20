@@ -1,13 +1,10 @@
 package com.lucapdt.challenge.service;
 
-import com.lucapdt.challenge.exception.RoleNameNotFoundException;
 import com.lucapdt.challenge.model.entity.UserEntity;
 import com.lucapdt.challenge.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserEntityServiceImpl implements UserEntityService{
