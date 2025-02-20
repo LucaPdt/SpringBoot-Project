@@ -16,9 +16,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
+@Component
 public class AuthenticationCommandImpl implements AuthenticationCommand{
 
     @Autowired
@@ -47,17 +49,33 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
 
     @Override
     public ResponseEntity<String> register(RegisterDTO registerDto) {
-        if(userEntityService.existByUsername(registerDto.getUsername()))
+        if(userEntityService.existsByUsername(registerDto.getUsername()))
             return new ResponseEntity<String>("Username non disponibile", HttpStatus.BAD_REQUEST);
 
         UserEntity user = new UserEntity();
         user.setUsername(registerDto.getUsername());
-        user.setPassword(registerDto.getPassword());
+        user.setPassword((passwordEncoder.encode(registerDto.getPassword())));
 
-        Role role = roleService.findByName("USER");
+        Role role = roleService.findByName("ROLE_USER");
         user.setRoles(Collections.singletonList(role));
 
         userEntityService.save(user);
         return new ResponseEntity<>("Utente registrato con successo", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> registerRole(RegisterDTO registerDto) {
+        if(userEntityService.existsByUsername(registerDto.getUsername()))
+            return new ResponseEntity<String>("Username non disponibile", HttpStatus.BAD_REQUEST);
+
+        UserEntity user = new UserEntity();
+        user.setUsername(registerDto.getUsername());
+        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+
+        Role role = roleService.findByName(registerDto.getRole().getName());
+        user.setRoles(Collections.singletonList(role));
+
+        userEntityService.save(user);
+        return new ResponseEntity<>("Utenza registrato con successo", HttpStatus.OK);
     }
 }

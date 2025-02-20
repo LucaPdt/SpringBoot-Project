@@ -7,6 +7,6 @@ import java.util.Optional;
 public interface UserEntityService {
 
     UserEntity findByUsername(String username);
-    Boolean existByUsername(String username);
+    Boolean existsByUsername(String username);
     void save(UserEntity user);
 }

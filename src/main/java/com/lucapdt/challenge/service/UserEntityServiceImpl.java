@@ -5,9 +5,11 @@ import com.lucapdt.challenge.model.entity.UserEntity;
 import com.lucapdt.challenge.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class UserEntityServiceImpl implements UserEntityService{
 
     @Autowired
@@ -20,9 +22,9 @@ public class UserEntityServiceImpl implements UserEntityService{
     }
 
     @Override
-    public Boolean existByUsername(String username) {
+    public Boolean existsByUsername(String username) {
 
-        return userEntityRepository.existByUsername(username);
+        return userEntityRepository.existsByUsername(username);
     }
 
     @Override

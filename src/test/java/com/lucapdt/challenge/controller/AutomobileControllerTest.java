@@ -1,6 +1,5 @@
 package com.lucapdt.challenge.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lucapdt.challenge.command.AutomobileCommand;
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
@@ -8,17 +7,17 @@ import com.lucapdt.challenge.model.entity.Automobile;
 import com.lucapdt.challenge.model.response.AutomobileResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -31,8 +30,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-
-@WebMvcTest(AutomobileRestController.class)
+@SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 public class AutomobileControllerTest {
 
@@ -54,6 +52,15 @@ public class AutomobileControllerTest {
         automobileDTO = new AutomobileDTO(0, "Fiat", "Panda", "2.0 JTDM", Year.of(2011), 7500.00, Automobile.StatoAuto.disponibile);
     }
 
+    void setupSecurity(){
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken("admin1", "password", List.of(new SimpleGrantedAuthority("ROLE_ADMIN")));
+
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authenticationToken);
+        SecurityContextHolder.setContext(context);
+    }
+
     @Test
     void findByIdTest() throws Exception {
         int id = 1;
@@ -72,6 +79,7 @@ public class AutomobileControllerTest {
 
     @Test
     void saveTest() throws Exception {
+        setupSecurity();
         when(automobileCommand.save(automobileDTO)).thenReturn(automobileDTO);
 
         MockHttpServletResponse response = mockmvc.perform(
@@ -87,6 +95,7 @@ public class AutomobileControllerTest {
 
     @Test
     void updateTest() throws Exception {
+        setupSecurity();
         when(automobileCommand.update(1, automobileDTO)).thenReturn(automobileDTO);
         MockHttpServletResponse response = mockmvc.perform(
                         put("/api/automobili/1")
@@ -101,6 +110,7 @@ public class AutomobileControllerTest {
 
     @Test
     void deleteById() throws Exception {
+        setupSecurity();
         doNothing().when(automobileCommand).deleteById(0);
 
         MockHttpServletResponse response = mockmvc.perform(
