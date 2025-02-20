@@ -3,6 +3,7 @@ package com.lucapdt.challenge.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -36,6 +37,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<HandlerResponse> handleBadCredentialsException(BadCredentialsException ex) {
+        HandlerResponse response = new HandlerResponse();
+
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        response.setMessage(ex.getMessage());
+        response.setTimestamp(new Date());
+
+        return new ResponseEntity<HandlerResponse>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<HandlerResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         HandlerResponse response = new HandlerResponse();
 
         response.setStatusCode(HttpStatus.BAD_REQUEST.value());

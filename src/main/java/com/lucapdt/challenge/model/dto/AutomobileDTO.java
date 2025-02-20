@@ -4,6 +4,7 @@ import com.lucapdt.challenge.model.entity.Automobile;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class AutomobileDTO {
     private String modello;
     private String motorizzazione;
     private Year anno;
+    @PositiveOrZero(message = "Se presente il prezzo deve essere maggiore di 0")
     private Double prezzo;
     private Automobile.StatoAuto stato;
 }

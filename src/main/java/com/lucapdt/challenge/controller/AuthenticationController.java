@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,18 +22,18 @@ public class AuthenticationController {
     private AuthenticationCommand authenticationCommand;
 
     @PostMapping("login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDto){
+    public ResponseEntity<AuthResponseDTO> login(@Validated @RequestBody LoginDTO loginDto){
         return new ResponseEntity<>(authenticationCommand.login(loginDto), HttpStatus.OK);
     }
 
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestBody RegisterDTO registerDto){
+    public ResponseEntity<String> register(@Validated @RequestBody RegisterDTO registerDto){
         return authenticationCommand.register(registerDto);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("register/role")
-    public ResponseEntity<String> registerRole(@RequestBody RegisterDTO registerDto) {
+    public ResponseEntity<String> registerRole(@Validated @RequestBody RegisterDTO registerDto) {
         return authenticationCommand.registerRole(registerDto);
     }
 }

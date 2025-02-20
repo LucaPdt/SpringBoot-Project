@@ -4,11 +4,13 @@ import com.lucapdt.challenge.command.AutomobileCommand;
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
 import com.lucapdt.challenge.model.entity.Automobile;
 import com.lucapdt.challenge.model.response.AutomobileResponse;
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,13 +38,13 @@ public class AutomobileRestController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/automobili")
-    public ResponseEntity<AutomobileDTO> createAutomobile(@RequestBody AutomobileDTO automobileDTO){
+    public ResponseEntity<AutomobileDTO> createAutomobile(@Validated @RequestBody AutomobileDTO automobileDTO){
         return new ResponseEntity<>(automobileCommand.save(automobileDTO), HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/automobili/{id}")
-    public ResponseEntity<AutomobileDTO> updateAutomobile(@PathVariable("id") int id, @RequestBody AutomobileDTO automobileDTO){
+    public ResponseEntity<AutomobileDTO> updateAutomobile(@PathVariable("id") int id,@Validated  @RequestBody AutomobileDTO automobileDTO){
         return ResponseEntity.ok(automobileCommand.update(id, automobileDTO));
     }
 
