@@ -56,7 +56,7 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
         user.setUsername(registerDto.getUsername());
         user.setPassword((passwordEncoder.encode(registerDto.getPassword())));
 
-        Role role = roleService.findByName("USER");
+        Role role = roleService.findByName("ROLE_USER");
         user.setRoles(Collections.singletonList(role));
 
         userEntityService.save(user);

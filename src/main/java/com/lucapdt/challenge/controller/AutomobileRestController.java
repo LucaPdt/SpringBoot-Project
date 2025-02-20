@@ -8,6 +8,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,16 +34,19 @@ public class AutomobileRestController {
         return ResponseEntity.ok(automobileCommand.findById(id));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/automobili")
     public ResponseEntity<AutomobileDTO> createAutomobile(@RequestBody AutomobileDTO automobileDTO){
         return new ResponseEntity<>(automobileCommand.save(automobileDTO), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/automobili/{id}")
     public ResponseEntity<AutomobileDTO> updateAutomobile(@PathVariable("id") int id, @RequestBody AutomobileDTO automobileDTO){
         return ResponseEntity.ok(automobileCommand.update(id, automobileDTO));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/automobili/{id}")
     public ResponseEntity<String> deleteAutomobile(@PathVariable("id") int id){
         automobileCommand.deleteById(id);

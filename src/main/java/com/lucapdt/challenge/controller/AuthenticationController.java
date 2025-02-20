@@ -7,6 +7,7 @@ import com.lucapdt.challenge.model.dto.RegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class AuthenticationController {
         return authenticationCommand.register(registerDto);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("register/role")
     public ResponseEntity<String> registerRole(@RequestBody RegisterDTO registerDto) {
         return authenticationCommand.registerRole(registerDto);
