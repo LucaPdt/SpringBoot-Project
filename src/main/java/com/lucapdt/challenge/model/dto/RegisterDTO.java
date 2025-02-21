@@ -19,6 +19,8 @@ public class RegisterDTO {
     @Size(min = 6, message = "La password deve contenere almeno 6 caratteri")
     private String password;
 
-    @Schema(description = "Ruolo dell'utente", example = "ROLE_USER")
+    @Schema(description = "Ruolo dell'utente", example = "{\n" +
+            "    \"name\": \"ROLE_ADMIN\"\n" +
+            "  }")
     private Role role;
 }
