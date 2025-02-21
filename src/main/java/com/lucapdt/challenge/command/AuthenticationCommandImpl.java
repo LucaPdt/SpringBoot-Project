@@ -1,6 +1,6 @@
 package com.lucapdt.challenge.command;
 
-import com.lucapdt.challenge.model.dto.AuthResponseDTO;
+import com.lucapdt.challenge.model.response.AuthResponseDTO;
 import com.lucapdt.challenge.model.dto.LoginDTO;
 import com.lucapdt.challenge.model.dto.RegisterDTO;
 import com.lucapdt.challenge.model.entity.Role;
@@ -60,7 +60,7 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
         user.setRoles(Collections.singletonList(role));
 
         userEntityService.save(user);
-        return new ResponseEntity<>("Utente registrato con successo", HttpStatus.OK);
+        return new ResponseEntity<>("Utente registrato con successo", HttpStatus.CREATED);
     }
 
     @Override
@@ -76,6 +76,6 @@ public class AuthenticationCommandImpl implements AuthenticationCommand{
         user.setRoles(Collections.singletonList(role));
 
         userEntityService.save(user);
-        return new ResponseEntity<>("Utenza registrato con successo", HttpStatus.OK);
+        return new ResponseEntity<>("Utenza registrato con successo", HttpStatus.CREATED);
     }
 }

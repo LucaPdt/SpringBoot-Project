@@ -4,6 +4,10 @@ import com.lucapdt.challenge.command.AutomobileCommand;
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
 import com.lucapdt.challenge.model.entity.Automobile;
 import com.lucapdt.challenge.model.response.AutomobileResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +19,34 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@SecurityRequirement(name = "bearerAuth")
 public class AutomobileRestController {
 
     @Autowired
     private AutomobileCommand automobileCommand;
 
+    @Operation(
+            summary = "Recupera una automobile per id",
+            description = "Endpoint per recuperare dal database una Automobile per id",
+            responses = {
+                    @ApiResponse(
+                            description = "Automobile recuperata con successo",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    ),
+                    @ApiResponse(
+                            description = "Automobile non trovata",
+                            responseCode = "404"
+                    )
+            }
+    )
     @GetMapping("/automobili/{id}")
     public ResponseEntity<AutomobileDTO> getAutomobileById(@PathVariable("id") int id) {
 //        ResponseEntity<AutomobileDTO> response;
@@ -34,18 +61,92 @@ public class AutomobileRestController {
         return ResponseEntity.ok(automobileCommand.findById(id));
     }
 
+    @Operation(
+            summary = "Crea una nuova Automobile nel database",
+            description = "Endpoint per inserire nel database una Automobile accessibile solo agli utenti con il ruolo 'ROLE_ADMIN'.",
+            responses = {
+                    @ApiResponse(
+                            description = "Automobile creata con successo",
+                            responseCode = "201"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato, l'utente non ha il permesso richiesto",
+                            responseCode = "403"
+                    )
+            }
+    )
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/automobili")
     public ResponseEntity<AutomobileDTO> createAutomobile(@Validated @RequestBody AutomobileDTO automobileDTO){
         return new ResponseEntity<>(automobileCommand.save(automobileDTO), HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "Aggiorna una Automobile nel database",
+            description = "Endpoint per aggiornare una Automobile nel database, sovrascrivera' solamente i campi specificati (eccetto id),  accessibile solo agli utenti con il ruolo 'ROLE_ADMIN'.",
+            responses = {
+                    @ApiResponse(
+                            description = "Automobile aggiornata con successo",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Automobile non trovata",
+                            responseCode = "404"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato, l'utente non ha il permesso richiesto",
+                            responseCode = "403"
+                    )
+            }
+    )
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/automobili/{id}")
     public ResponseEntity<AutomobileDTO> updateAutomobile(@PathVariable("id") int id,@Validated  @RequestBody AutomobileDTO automobileDTO){
         return ResponseEntity.ok(automobileCommand.update(id, automobileDTO));
     }
 
+    @Operation(
+            summary = "Elimina una Automobile nel database dato il suo id",
+            description = "Endpoint per eliminare dal database una Automobile accessibile solo agli utenti con il ruolo 'ROLE_ADMIN'.",
+            responses = {
+                    @ApiResponse(
+                            description = "Automobile eliminata con successo",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Automobile non trovata",
+                            responseCode = "404"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato, l'utente non ha il permesso richiesto",
+                            responseCode = "403"
+                    )
+            }
+    )
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/automobili/{id}")
     public ResponseEntity<String> deleteAutomobile(@PathVariable("id") int id){
@@ -53,11 +154,47 @@ public class AutomobileRestController {
         return new ResponseEntity<>("Automobile delete", HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "Restituisce la lista di tutte le automobili nel Database",
+            description = "Endpoint per recuperare la lista di tutte le automobili nel database",
+            responses = {
+                    @ApiResponse(
+                            description = "Richiesta effettuata con successo",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    )
+            }
+    )
     @GetMapping("/automobili/list")
     public ResponseEntity<List<AutomobileDTO>> findAllList(){
         return ResponseEntity.ok(automobileCommand.findAll());
     }
 
+    @Operation(
+            summary = "Restituisce una richiesta paginata effettuata su tutte le automobili nel Database",
+            description = "Endpoint per effettuare una richiesta paginata su tutte le automobili nel Database, 'page' specifica il numero di pagina da restituire, 'size' specifica la dimensione di una pagina",
+            responses = {
+                    @ApiResponse(
+                            description = "Richiesta effettuata con successo",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    )
+            }
+    )
     @GetMapping("/automobili")
     public ResponseEntity<AutomobileResponse> findAll(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
@@ -66,6 +203,24 @@ public class AutomobileRestController {
         return ResponseEntity.ok(automobileCommand.findAll(page,size));
     }
 
+    @Operation(
+            summary = "Restituisce una richiesta paginata effettuata su tutte le automobili nel database con la marca specificata",
+            description = "Endpoint per effettuare una richiesta paginata su tutte le automobili nel Database con la marca specificata, 'page' specifica il numero di pagina da restituire, 'size' specifica la dimensione di una pagina",
+            responses = {
+                    @ApiResponse(
+                            description = "Richiesta effettuata con successo",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    )
+            }
+    )
     @GetMapping("/automobili/marca")
     public ResponseEntity<AutomobileResponse> findByMarca(
             @RequestParam(value = "marca") String marca,
@@ -76,6 +231,26 @@ public class AutomobileRestController {
 
     }
 
+    @Operation(
+            summary = "Restituisce una richiesta paginata effettuata su tutte le automobili nel database con il range di prezzo indicato",
+            description = "Endpoint per effettuare una richiesta paginata su tutte le automobili nel Database con il range di prezzo indicato, " +
+                    "'page' specifica il numero di pagina da restituire, 'size' specifica la dimensione di una pagina, " +
+                    "'prezzomin' specifica il prezzo minimo da cui far partire il filtro, 'prezzomax' indica il prezzo massimo in cui fermare il filtro",
+            responses = {
+                    @ApiResponse(
+                            description = "Richiesta effettuata con successo",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    )
+            }
+    )
     @GetMapping("/automobili/prezzo/range")
     public ResponseEntity<AutomobileResponse> findByPrezzoBetween(
             @RequestParam(value = "prezzoMin") double prezzoMin,
@@ -86,6 +261,25 @@ public class AutomobileRestController {
         return ResponseEntity.ok(automobileCommand.findByPrezzoBetween(prezzoMin, prezzoMax, page, size));
     }
 
+    @Operation(
+            summary = "Restituisce una richiesta paginata effettuata su tutte le automobili nel database con lo stato specificato",
+            description = "Endpoint per effettuare una richiesta paginata su tutte le automobili nel Database con lo stato specificato, " +
+                    "'page' specifica il numero di pagina da restituire, 'size' specifica la dimensione di una pagina, 'stato' specifica lo stato delle automobili richiesto",
+            responses = {
+                    @ApiResponse(
+                            description = "Richiesta effettuata con successo",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Accesso negato",
+                            responseCode = "401"
+                    )
+            }
+    )
     @GetMapping("/automobili/stato")
     public ResponseEntity<AutomobileResponse> findByStato(
             @RequestParam(value = "stato") Automobile.StatoAuto stato,
