@@ -114,7 +114,7 @@ Questo passaggio disabilitera' la sicurezza sulla creazione di utenze personaliz
 
 ### 5.2: Crea utenza ADMIN
 
-Ricompila e Riavvia l'applicazione (Step 4.1 e 4.2) e tramite un Client come Postman manda una richiesta `POST` con body:
+Ricompila e Riavvia l'applicazione (Step 4.1 e 4.2) e tramite un Client come Postman (oppure da [swagger](http://localhost:8080/swagger-ui/index.html)) manda una richiesta `POST` con body:
 
 ```json
 {
@@ -153,3 +153,5 @@ all'endpoint `http://localhost:8080/api/auth/login`
 Se hai eseguito i passaggi correttamente riceverai come response un token di accesso.
 
 Copia questo token di accesso e inseriscilo nel campo: `Authorization -> BearerToken -> Token` di Postman per avere accesso a tutte le API.
+
+Oppure se si sta utilizzando Swagger effettua il login tramite il token premendo sul pulsante `Authorize`

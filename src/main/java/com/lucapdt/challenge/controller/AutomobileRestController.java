@@ -5,6 +5,7 @@ import com.lucapdt.challenge.model.dto.AutomobileDTO;
 import com.lucapdt.challenge.model.entity.Automobile;
 import com.lucapdt.challenge.model.response.AutomobileResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
@@ -45,6 +46,9 @@ public class AutomobileRestController {
                             description = "Automobile non trovata",
                             responseCode = "404"
                     )
+            },
+            parameters = {
+                    @Parameter(name = "id", description = "ID dell'automobile da recuperare", required = true, example = "1")
             }
     )
     @GetMapping("/automobili/{id}")
@@ -81,7 +85,11 @@ public class AutomobileRestController {
                             description = "Accesso negato, l'utente non ha il permesso richiesto",
                             responseCode = "403"
                     )
-            }
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Dettagli dell'automobile da creare",
+                    required = true
+            )
     )
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/automobili")
@@ -113,7 +121,14 @@ public class AutomobileRestController {
                             description = "Accesso negato, l'utente non ha il permesso richiesto",
                             responseCode = "403"
                     )
-            }
+            },
+            parameters = {
+                    @Parameter(name = "id", description = "ID dell'automobile da aggiornare", required = true, example = "1")
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Campi da aggiornare dell'automobile",
+                    required = true
+            )
     )
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/automobili/{id}")
@@ -145,6 +160,9 @@ public class AutomobileRestController {
                             description = "Accesso negato, l'utente non ha il permesso richiesto",
                             responseCode = "403"
                     )
+            },
+            parameters = {
+                    @Parameter(name = "id", description = "ID dell'automobile da eliminare", required = true, example = "1")
             }
     )
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -219,6 +237,11 @@ public class AutomobileRestController {
                             description = "Accesso negato",
                             responseCode = "401"
                     )
+            },
+            parameters = {
+                    @Parameter(name = "page", description = "Numero della pagina da restituire", required = false, example = "0"),
+                    @Parameter(name = "size", description = "Numero di elementi per pagina", required = false, example = "10"),
+                    @Parameter(name = "marca", description = "Marca da cercare", required = true, example = "Fiat")
             }
     )
     @GetMapping("/automobili/marca")
@@ -249,6 +272,12 @@ public class AutomobileRestController {
                             description = "Accesso negato",
                             responseCode = "401"
                     )
+            },
+            parameters = {
+                    @Parameter(name = "page", description = "Numero della pagina da restituire", required = false, example = "0"),
+                    @Parameter(name = "size", description = "Numero di elementi per pagina", required = false, example = "10"),
+                    @Parameter(name = "prezzoMin", description = "Prezzo da cui far partire il filtro", required = true, example = "0"),
+                    @Parameter(name = "prezzoMax", description = "Prezzo in cui far terminare il filtro", required = true, example = "10000")
             }
     )
     @GetMapping("/automobili/prezzo/range")
@@ -278,6 +307,11 @@ public class AutomobileRestController {
                             description = "Accesso negato",
                             responseCode = "401"
                     )
+            },
+            parameters = {
+                    @Parameter(name = "page", description = "Numero della pagina da restituire", required = false, example = "0"),
+                    @Parameter(name = "size", description = "Numero di elementi per pagina", required = false, example = "10"),
+                    @Parameter(name = "stato", description = "Stato da cercare", required = true, example = "disponibile")
             }
     )
     @GetMapping("/automobili/stato")

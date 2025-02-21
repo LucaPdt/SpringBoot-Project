@@ -5,6 +5,7 @@ import com.lucapdt.challenge.model.response.AuthResponseDTO;
 import com.lucapdt.challenge.model.dto.LoginDTO;
 import com.lucapdt.challenge.model.dto.RegisterDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,11 @@ public class AuthenticationController {
                             description = "Credenziali errate o parametro mancante",
                             responseCode = "400"
                     )
-            }
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Dettagli di login contenenti Username e Password",
+                    required = true
+            )
     )
     @PostMapping("login")
     public ResponseEntity<AuthResponseDTO> login(@Validated @RequestBody LoginDTO loginDto){
@@ -55,7 +60,12 @@ public class AuthenticationController {
                             description = "Richiesta malformata o Username non disponibile, controlla che tutti i campi siano corretti",
                             responseCode = "400"
                     )
-            }
+
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Dettagli dell'utente da registrare",
+                    required = true
+            )
     )
     @PostMapping("register")
     public ResponseEntity<String> register(@Validated @RequestBody RegisterDTO registerDto){
@@ -82,7 +92,11 @@ public class AuthenticationController {
                             description = "Richiesta malformata o Username non disponibile, controlla che tutti i campi siano corretti",
                             responseCode = "400"
                     )
-            }
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Dettagli dell'utente da registrare",
+                    required = true
+            )
     )
     @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
