@@ -115,16 +115,5 @@ public class GlobalExceptionHandler {
         response.setTimestamp(new Date());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
-
-    @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
-    public ResponseEntity<HandlerResponse> handleAuthenticationCredentialsNotFoundException(AuthenticationCredentialsNotFoundException ex) {
-        HandlerResponse response = new HandlerResponse();
-        response.setStatusCode(HttpStatus.UNAUTHORIZED.value());
-        response.setMessage(ex.getMessage());
-        response.setTimestamp(new Date());
-        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-    }
-
-
 }
 
