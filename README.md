@@ -1,6 +1,6 @@
 # Guida per Avviare e Testare l'applicazione
 
-Questa guida ti aiuterà a clonare l'applicazione Spring Boot, configurare il database e testare l'applicazione. 
+Questa guida ti aiuterà a clonare l'applicazione Spring Boot, configurare il database e testare l'applicazione.
 
 Segui questi passaggi per configurare l'ambiente di sviluppo e testare l'applicazione.
 
@@ -46,12 +46,12 @@ Dettagli:
 - `-U <tuo_utente>` specifica l'utente PostgreSQL
 - `-d postgres` Specifica il database a cui connettersi (puoi usare postgres come database predefinito per eseguire lo script di creazione del database).
 - `< script.sql` Esegue il file SQL come input.
-    
+
   `f script.sql` Alternativa che esegue direttamente il file.
 
 ## Passo 3: Aggiorna application.properties
 
-Aggiorna la configurazione per la connessione al database nel file `application.properties` inserendo i datasource corretti e cambiando il il `datasource.driver` nel caso non si utilizzasse PostgreSQL.
+Aggiorna la configurazione per la connessione al database nel file `application.properties` inserendo i datasource corretti e cambiando il `datasource.driver` nel caso non si utilizzasse PostgreSQL.
 
 Nel caso si fosse cambiato DBMS aggiornare anche `pom.xml` inserendo le dipendenze maven per il DBMS scelto.
 
@@ -78,7 +78,7 @@ Verifica che i test eseguino correttamente
 .\mvnw test
 ```
 
-Una esecuzione dei test corretta terminera' con una messaggi di questo tipo:
+Una esecuzione dei test corretta terminera' con una serie di messaggi di questo tipo:
 
 ```
 [INFO] Results:
@@ -106,13 +106,30 @@ In quanto il Programma utilizza un sistema di autenticazione e' necessario crear
 
 Segui questi passaggi per creare una utenza `ADMIN` che ci permettera' di accedere a tutti gli endpoint
 
-### 5.1: Commentare @PreAuthorize
+### 5.1 Crea utenza USER
+
+Tramite un Client come Postman (oppure da [swagger](http://localhost:8080/swagger-ui/index.html)) manda una richiesta `POST` con body:
+
+```json
+{
+  "username": "username",
+  "password": "password"
+}
+```
+
+all'endpoint `http://localhost:8080/api/auth/register`
+
+Questo creera' una utenza `USER` necessaria per passare i sitemi di autenticazione di base.
+
+<br>
+
+### 5.2: Commentare @PreAuthorize
 
 Apri il file AuthenticationController e commenta la riga 34: `@PreAuthorize("hasAuthority('ROLE_ADMIN')")`
 
-Questo passaggio disabilitera' la sicurezza sulla creazione di utenze personalizzate. (ci servira' per creare un admin)
+Questo passaggio disabilitera' il controllo sul ruolo nella creazione di utenze personalizzate. (ci servira' per creare un admin)
 
-### 5.2: Crea utenza ADMIN
+### 5.3: Crea utenza ADMIN
 
 Ricompila e Riavvia l'applicazione (Step 4.1 e 4.2) e tramite un Client come Postman (oppure da [swagger](http://localhost:8080/swagger-ui/index.html)) manda una richiesta `POST` con body:
 
@@ -130,13 +147,13 @@ all'endpoint `http://localhost:8080/api/auth/register/role`
 
 <br>
 
-Questo passaggio Creera' una utenza con rulo `USER`
+Questo passaggio Creera' una utenza con rulo `ADMIN`
 
-### 5.2: Scommentare @PreAuthorize
+### 5.4: Scommentare @PreAuthorize
 
-Ricommenta la lina `@PreAuthorize` commentata in precedenza, ricompila e riavvia l'applicazione.
+Scommenta la riga 34 `@PreAuthorize` commentata in precedenza, ricompila e riavvia l'applicazione.
 
-### 5.3: Effettua il login con l'utenza ADMIN
+### 5.5: Effettua il login con l'utenza ADMIN
 
 Invia una richiesta `POST` con body:
 ```json
@@ -154,4 +171,4 @@ Se hai eseguito i passaggi correttamente riceverai come response un token di acc
 
 Copia questo token di accesso e inseriscilo nel campo: `Authorization -> BearerToken -> Token` di Postman per avere accesso a tutte le API.
 
-Oppure se si sta utilizzando Swagger effettua il login tramite il token premendo sul pulsante `Authorize`
+Oppure se si sta utilizzando Swagger effettua il login con il token premendo sul pulsante `Authorize`.
