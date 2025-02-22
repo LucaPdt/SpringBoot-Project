@@ -1,6 +1,6 @@
 # Guida per Avviare e Testare l'applicazione
 
-Questa guida ti aiuterà a clonare l'applicazione Spring Boot, configurare il database e testare l'applicazione. 
+Questa guida ti aiuterà a clonare l'applicazione Spring Boot, configurare il database e testare l'applicazione.
 
 Segui questi passaggi per configurare l'ambiente di sviluppo e testare l'applicazione.
 
@@ -46,7 +46,7 @@ Dettagli:
 - `-U <tuo_utente>` specifica l'utente PostgreSQL
 - `-d postgres` Specifica il database a cui connettersi (puoi usare postgres come database predefinito per eseguire lo script di creazione del database).
 - `< script.sql` Esegue il file SQL come input.
-    
+
   `f script.sql` Alternativa che esegue direttamente il file.
 
 ## Passo 3: Aggiorna application.properties
@@ -119,7 +119,7 @@ Tramite un Client come Postman (oppure da [swagger](http://localhost:8080/swagge
 
 all'endpoint `http://localhost:8080/api/auth/register`
 
-Questo creera' una utenza `USER` necessaria per passare i sitemi di autenticazione di base. 
+Questo creera' una utenza `USER` necessaria per passare i sitemi di autenticazione di base.
 
 <br>
 
