@@ -1,11 +1,14 @@
 package com.lucapdt.challenge.controller;
 
 import com.lucapdt.challenge.command.AuthenticationCommand;
+import com.lucapdt.challenge.exception.HandlerResponse;
 import com.lucapdt.challenge.model.response.AuthResponseDTO;
 import com.lucapdt.challenge.model.dto.LoginDTO;
 import com.lucapdt.challenge.model.dto.RegisterDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +34,13 @@ public class AuthenticationController {
             responses = {
                     @ApiResponse(
                             description = "Login riuscito, token restituito",
-                            responseCode = "200"
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthResponseDTO.class))
                     ),
                     @ApiResponse(
                             description = "Credenziali errate o parametro mancante",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -54,11 +59,13 @@ public class AuthenticationController {
             responses = {
                     @ApiResponse(
                             description = "Registrazione avvennuta con successo",
-                            responseCode = "201"
+                            responseCode = "201",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata o Username non disponibile, controlla che tutti i campi siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
 
             },
@@ -78,19 +85,23 @@ public class AuthenticationController {
             responses = {
                     @ApiResponse(
                             description = "Registrazione avvennuta con successo",
-                            responseCode = "201"
+                            responseCode = "201",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato, ruolo insufficiente",
-                            responseCode = "403"
+                            responseCode = "403",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata o Username non disponibile, controlla che tutti i campi siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
