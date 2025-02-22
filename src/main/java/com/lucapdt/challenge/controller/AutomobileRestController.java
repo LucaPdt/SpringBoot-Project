@@ -1,11 +1,14 @@
 package com.lucapdt.challenge.controller;
 
 import com.lucapdt.challenge.command.AutomobileCommand;
+import com.lucapdt.challenge.exception.HandlerResponse;
 import com.lucapdt.challenge.model.dto.AutomobileDTO;
 import com.lucapdt.challenge.model.entity.Automobile;
 import com.lucapdt.challenge.model.response.AutomobileResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
@@ -32,19 +35,24 @@ public class AutomobileRestController {
             responses = {
                     @ApiResponse(
                             description = "Automobile recuperata con successo",
-                            responseCode = "200"
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutomobileDTO.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
+
                     ),
                     @ApiResponse(
                             description = "Automobile non trovata",
-                            responseCode = "404"
+                            responseCode = "404",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             parameters = {
@@ -71,19 +79,23 @@ public class AutomobileRestController {
             responses = {
                     @ApiResponse(
                             description = "Automobile creata con successo",
-                            responseCode = "201"
+                            responseCode = "201",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutomobileDTO.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato, l'utente non ha il permesso richiesto",
-                            responseCode = "403"
+                            responseCode = "403",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -103,23 +115,28 @@ public class AutomobileRestController {
             responses = {
                     @ApiResponse(
                             description = "Automobile aggiornata con successo",
-                            responseCode = "200"
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutomobileDTO.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Automobile non trovata",
-                            responseCode = "404"
+                            responseCode = "404",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato, l'utente non ha il permesso richiesto",
-                            responseCode = "403"
+                            responseCode = "403",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             parameters = {
@@ -146,19 +163,23 @@ public class AutomobileRestController {
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Automobile non trovata",
-                            responseCode = "404"
+                            responseCode = "404",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato, l'utente non ha il permesso richiesto",
-                            responseCode = "403"
+                            responseCode = "403",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             parameters = {
@@ -178,15 +199,18 @@ public class AutomobileRestController {
             responses = {
                     @ApiResponse(
                             description = "Richiesta effettuata con successo",
-                            responseCode = "200"
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             }
     )
@@ -201,15 +225,18 @@ public class AutomobileRestController {
             responses = {
                     @ApiResponse(
                             description = "Richiesta effettuata con successo",
-                            responseCode = "200"
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutomobileResponse.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             }
     )
@@ -227,15 +254,18 @@ public class AutomobileRestController {
             responses = {
                     @ApiResponse(
                             description = "Richiesta effettuata con successo",
-                            responseCode = "200"
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutomobileResponse.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             parameters = {
@@ -262,15 +292,18 @@ public class AutomobileRestController {
             responses = {
                     @ApiResponse(
                             description = "Richiesta effettuata con successo",
-                            responseCode = "200"
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutomobileResponse.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             parameters = {
@@ -297,15 +330,18 @@ public class AutomobileRestController {
             responses = {
                     @ApiResponse(
                             description = "Richiesta effettuata con successo",
-                            responseCode = "200"
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AutomobileResponse.class))
                     ),
                     @ApiResponse(
                             description = "Richiesta malformata controlla che i campi/parametri/variabili inseriti siano corretti",
-                            responseCode = "400"
+                            responseCode = "400",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     ),
                     @ApiResponse(
                             description = "Accesso negato",
-                            responseCode = "401"
+                            responseCode = "401",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = HandlerResponse.class))
                     )
             },
             parameters = {
