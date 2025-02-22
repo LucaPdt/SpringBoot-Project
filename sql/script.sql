@@ -15,7 +15,7 @@ CREATE TABLE roles (
 
 CREATE TABLE utenze (
     username VARCHAR(50) PRIMARY KEY,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE user_roles (
