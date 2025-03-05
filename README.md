@@ -19,6 +19,7 @@ Questa è un'applicazione Spring Boot che espone delle REST API per la gestione 
 - PostgreSQL
 - JUnit & Mockito
 - OpenApi (Swagger) per la documentazione delle API
+- Git
 
 ## Struttura principale:
 
