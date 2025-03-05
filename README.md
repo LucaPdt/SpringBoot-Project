@@ -1,3 +1,48 @@
+# Concessionaria API - Spring Boot
+
+Questa è un'applicazione Spring Boot che espone delle REST API per la gestione di una concessionaria. Consente di effettuare operazioni CRUD su un database, che include:
+
+- Una tabella per la gestione delle automobili
+- Tabelle per la gestione delle utenze e dei ruoli dell'applicazione
+
+### Funzionalita' principali:
+
+- Operazioni CRUD sulle varie tabelle del database
+- Autenticazione e autorizzazione con Spring Security con token JWT
+- Test di unita' per verificare il funzionamento
+
+### Principali teconlogie utilizzate:
+
+- Spring Boot
+- Spring Data JPA
+- Spring Security
+- PostgreSQL
+- JUnit & Mockito
+- OpenApi (Swagger) per la documentazione delle API
+
+## Struttura principale:
+
+Il codice è strutturato in vari package:
+
+- __model__:
+  - __entity__: Classi che rappresentato le entità nel database, ogni entità è mappata a una tabella nel database
+  - __dto__: I principali DataTransferObject in ingresso, utilizzati per la validazione e il trasferimento dei dati tra i vari layer dell'applicazione 
+  - __response__: I principali DTO in uscita, utilizzati per formattare le risposte delle API
+- __repository__: Contiene le repository JPA relative alle entità
+- __service__: Classi che si occupano dell'interazione con i Repository
+- __command__: Classi che gestiscono la logica di business e si interfacciano con i Service
+- __controller__: Classi che ricevono le richieste HTTP
+
+<br>
+
+- __exception__: Contiene le classi relative alla gestione delle eccezioni. Include un ExceptionHandler, Response per le eccezioni, e eccezioni personalizzate per migliorare la gestione degli errori
+- __security__: Contiene le classi relative alla sicurezza, come la gestione dell'autenticazione tramite JWT e la protezione delle risorse tramite Spring Security
+- __configuration__: Classi di configurazione
+
+<br>
+
+Vi sono poi nella directory di Test alcuni test unitari.
+
 # Guida per Avviare e Testare l'applicazione
 
 Questa guida ti aiuterà a clonare l'applicazione Spring Boot, configurare il database e testare l'applicazione.
