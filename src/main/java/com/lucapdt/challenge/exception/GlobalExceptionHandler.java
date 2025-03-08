@@ -115,5 +115,15 @@ public class GlobalExceptionHandler {
         response.setTimestamp(new Date());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
+    public ResponseEntity<HandlerResponse> handleAuthenticationException(AuthenticationCredentialsNotFoundException ex) {
+        HandlerResponse errorResponse = new HandlerResponse();
+        errorResponse.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+        errorResponse.setMessage("Token JWT mancante o non valido");
+        errorResponse.setTimestamp(new Date());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
 }
 
